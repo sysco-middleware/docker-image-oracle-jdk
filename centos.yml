@@ -1,0 +1,43 @@
+- hosts: 127.0.0.1
+  connection: local
+  vars_files:
+    - vars/centos.yml
+  tasks:
+    - name: create container
+      docker:
+        name: tmp-oracle-jdk
+        image: "{{ base_image }}"
+        command: sleep infinity
+        state: started
+
+    - add_host:
+        name: tmp-oracle-jdk
+        groups: docker
+        ansible_connection: docker
+
+- hosts: tmp-oracle-jdk
+  connection: docker
+  roles:
+    - role: jeqo.java
+      java_provider: oracle
+      java_version: 8
+      java_type: jdk
+
+- hosts: 127.0.0.1
+  connection: local
+  vars_files:
+    - vars/centos.yml
+  tasks:
+    - name: docker commit
+      command: "docker commit tmp-oracle-jdk {{ organization }}/{{ image_name }}:{{ item }}"
+      with_items: "{{ tags }}"
+
+    - name: docker push
+      command: "docker push {{ organization }}/{{ image_name }}:{{ item }}"
+      with_items: "{{ tags }}"
+
+    - name: docker kill
+      command: "docker kill tmp-oracle-jdk"
+
+    - name: docker rm
+      command: "docker rm tmp-oracle-jdk"
