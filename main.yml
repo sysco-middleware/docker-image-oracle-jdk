@@ -1,7 +1,7 @@
 - hosts: 127.0.0.1
   connection: local
   vars_files:
-    - vars/centos.yml
+    - vars/main.yml
   tasks:
     - name: create container
       docker:
@@ -26,14 +26,14 @@
 - hosts: 127.0.0.1
   connection: local
   vars_files:
-    - vars/centos.yml
+    - vars/main.yml
   tasks:
     - name: docker commit
-      command: "docker commit tmp-oracle-jdk {{ organization }}/{{ image_name }}:{{ item }}"
+      command: "docker commit tmp-oracle-jdk {{ image_name }}:{{ item }}"
       with_items: "{{ tags }}"
 
     - name: docker push
-      command: "docker push {{ organization }}/{{ image_name }}:{{ item }}"
+      command: "docker push {{ image_name }}:{{ item }}"
       with_items: "{{ tags }}"
 
     - name: docker kill

@@ -1,6 +1,0 @@
-base_image: jeqo/centos
-organization: syscomiddleware
-image_name: oracle-jdk
-tags:
-  - latest
-  - centos-8
