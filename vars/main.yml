@@ -1,5 +1,3 @@
 base_image: jeqo/centos:7
 image_name: syscomiddleware/oracle-jdk
-tags:
-  - centos-7
-  - centos-7.79
+tag: jdk7-centos7
