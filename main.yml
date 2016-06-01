@@ -20,7 +20,7 @@
   roles:
     - role: jeqo.java
       java_provider: oracle
-      java_version: 8
+      java_version: 7
       java_type: jdk
 
 - hosts: 127.0.0.1
@@ -29,12 +29,10 @@
     - vars/main.yml
   tasks:
     - name: docker commit
-      command: "docker commit tmp-oracle-jdk {{ image_name }}:{{ item }}"
-      with_items: "{{ tags }}"
+      command: "docker commit tmp-oracle-jdk {{ image_name }}:{{ tag }}"
 
     - name: docker push
-      command: "docker push {{ image_name }}:{{ item }}"
-      with_items: "{{ tags }}"
+      command: "docker push {{ image_name }}:{{ tag }}"
 
     - name: docker kill
       command: "docker kill tmp-oracle-jdk"
