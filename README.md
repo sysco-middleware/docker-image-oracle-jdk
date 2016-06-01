@@ -6,6 +6,12 @@ Image with Oracle JDK installed.
 
 jeqo/centos:7
 
+## Ansible roles
+
+- jeqo.java
+
+> ansible-galaxy install -f jeqo.java
+
 ## How to build it
 
 Run:
