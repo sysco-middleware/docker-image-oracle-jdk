@@ -31,11 +31,11 @@
     - name: docker commit
       command: "docker commit tmp-oracle-jdk {{ image_name }}:{{ tag }}"
 
-    - name: docker push
-      command: "docker push {{ image_name }}:{{ tag }}"
-
     - name: docker kill
       command: "docker kill tmp-oracle-jdk"
 
     - name: docker rm
       command: "docker rm tmp-oracle-jdk"
+
+    - name: docker push
+      command: "docker push {{ image_name }}:{{ tag }}"
